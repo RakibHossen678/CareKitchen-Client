@@ -8,10 +8,12 @@ import AuthProvider from "./Provider/AuthProvider";
 import Login from "./Pages/Authentication/Login";
 import Register from "./Pages/Authentication/Register";
 import { Toaster } from "react-hot-toast";
+import ErrorPage from "./Components/ErrorPage";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
