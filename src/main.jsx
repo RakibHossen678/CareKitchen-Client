@@ -4,20 +4,32 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import MainLayout from "./Layout/MainLayout";
 import Home from "./Pages/Home";
+import AuthProvider from "./Provider/AuthProvider";
+import Login from "./Pages/Authentication/Login";
+import Register from "./Pages/Authentication/Register";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    children:[
+    children: [
       {
-        path:'/',
-        element:<Home></Home>
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path:'/register',
+        element:<Register></Register>
+      },{
+        path:'/login',
+        element:<Login></Login>
       }
-    ]
+    ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

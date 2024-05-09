@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/Logo (2).png";
 
 const NavBar = () => {
@@ -76,16 +76,16 @@ const NavBar = () => {
         <ul className="space-x-7 menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <a className="rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-[#ff6347] active:shadow-none shadow-lg bg-gradient-to-tr from-[#ff6347] to-[#ff6347] border-[#ff6347] text-white">
+        <Link to='/register' className="rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-[#ff6347] active:shadow-none shadow-lg bg-gradient-to-tr from-[#ff6347] to-[#ff6347] border-[#ff6347] text-white">
           <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
           <span className="relative">Register </span>
-        </a>
-        <a className="rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#ff6347] text-[#ff6347] ">
+        </Link>
+        <Link to='/login' className="rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#ff6347] text-[#ff6347] ">
           <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-[#ff6347] top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
           <span className="relative text-[#ff6347] transition duration-300 group-hover:text-white ease">
             Login
           </span>
-        </a>
+        </Link>
       </div>
     </div>
   );
