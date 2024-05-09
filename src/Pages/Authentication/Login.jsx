@@ -36,6 +36,16 @@ const Login = () => {
       toast.error(err?.message)
     }
   }
+  const handleGithubSignIn = async () => {
+    try {
+      await signInWithGoogle()
+      toast.success('Sign in Successful')
+      navigate('/')
+    } catch (err) {
+      console.log(err)
+      toast.error(err?.message)
+    }
+  }
   return (
     <div className="my-10">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
@@ -78,7 +88,7 @@ const Login = () => {
               Sign in with Google
             </span>
           </button>
-          <a className="flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <button onClick={handleGithubSignIn} className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
             <div className="px-4 py-2">
               <FaGithub className="text-2xl" />
             </div>
@@ -86,7 +96,7 @@ const Login = () => {
             <span className="w-5/6 px-4 py-3 font-bold text-center">
               Sign in with GitHub
             </span>
-          </a>
+          </button>
 
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
