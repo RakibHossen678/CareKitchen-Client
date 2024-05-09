@@ -68,7 +68,7 @@ const Banner = () => {
           >
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-center text-white">
-              <div className="max-w-xl">
+              <div className="lg:max-w-xl max-w-md ">
                 <h1 className="mb-5 text-5xl font-bold">Together, We Can Make a Difference</h1>
                 <p className="mb-5">
                 Take a stand against hunger with CareKitchen. Together, we can make a tangible difference in the lives of those facing food insecurity. Explore ways to get involved, from donating surplus food to volunteering your time. Let's create a world where everyone has access to nutritious meals.
