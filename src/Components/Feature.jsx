@@ -12,7 +12,7 @@ const Feature = ({ food }) => {
     expiredDate,
     notes,
   } = food;
-  console.log(food);
+  // console.log(food);
   return (
     <div>
       <div className="flex flex-col max-w-md p-4 space-y-6 overflow-hidden rounded-lg shadow-md ">
