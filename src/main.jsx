@@ -12,6 +12,7 @@ import ErrorPage from "./Components/ErrorPage";
 import AddFood from "./Pages/AddFood";
 import FoodDetails from "./Components/FoodDetails";
 import PrivateRoute from "./Routes/PrivateRoute";
+import AvailableFood from "./Pages/AvailableFood";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,10 +34,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/addFood",
-        element: <AddFood></AddFood>,
+        element: (
+          <PrivateRoute>
+            <AddFood></AddFood>
+          </PrivateRoute>
+        ),
       },
       {
-        path: "food/:id",
+        path: "/:id",
         element: (
           <PrivateRoute>
             <FoodDetails></FoodDetails>
@@ -45,6 +50,11 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/food/${params.id}`),
       },
+      {
+        path: "/availableFood",
+        element: <AvailableFood></AvailableFood>,
+      },
+     
     ],
   },
 ]);

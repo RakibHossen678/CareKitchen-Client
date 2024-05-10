@@ -33,7 +33,7 @@ const FoodDetails = () => {
       foodQuantity: food.foodQuantity,
       pickupLocation: food.pickupLocation,
       expiredDate: new Date(expiredDate).toLocaleDateString(),
-      notes: note,
+      notes: note || food.notes,
       donor: {
         name: food.donor.name,
         email: food.donor.email,
