@@ -10,27 +10,41 @@ import Register from "./Pages/Authentication/Register";
 import { Toaster } from "react-hot-toast";
 import ErrorPage from "./Components/ErrorPage";
 import AddFood from "./Pages/AddFood";
+import FoodDetails from "./Components/FoodDetails";
+import PrivateRoute from "./Routes/PrivateRoute";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
         element: <Home></Home>,
-        loader:()=>fetch('http://localhost:5000/food')
+        loader: () => fetch("http://localhost:5000/food"),
       },
       {
-        path:'/register',
-        element:<Register></Register>
-      },{
-        path:'/login',
-        element:<Login></Login>
-      },{
-        path:'/addFood',
-        element:<AddFood></AddFood>
-      }
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/addFood",
+        element: <AddFood></AddFood>,
+      },
+      {
+        path: "food/:id",
+        element: (
+          <PrivateRoute>
+            <FoodDetails></FoodDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/food/${params.id}`),
+      },
     ],
   },
 ]);

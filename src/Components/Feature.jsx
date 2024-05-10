@@ -43,7 +43,7 @@ const Feature = ({ food }) => {
 
           <div className="flex py-2 justify-between items-center">
             <p className="">
-              <span className="font-semibold">Expire Date</span> :{" "}
+              <span className="font-semibold">Expire Date</span> :
               {new Date(expiredDate).toLocaleDateString()}
             </p>
             <p>
