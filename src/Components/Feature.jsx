@@ -1,5 +1,9 @@
+import { MdNote } from "react-icons/md";
+import { Link } from "react-router-dom";
+
 const Feature = ({ food }) => {
   const {
+    _id,
     donor,
     foodImg,
     foodName,
@@ -15,7 +19,7 @@ const Feature = ({ food }) => {
         <div className="flex space-x-4">
           <img
             alt=""
-            src={donor.image}
+            src={donor?.image}
             className="object-cover w-12 h-12 rounded-full shadow bg-gray-500"
           />
           <div className="flex flex-col space-y-1">
@@ -24,9 +28,9 @@ const Feature = ({ food }) => {
               href="#"
               className="text-sm font-semibold"
             >
-              {donor.name}
+              {donor?.name}
             </a>
-            <span className="text-xs text-gray-400">{donor.email}</span>
+            <span className="text-xs text-gray-400">{donor?.email}</span>
           </div>
         </div>
         <div>
@@ -36,42 +40,37 @@ const Feature = ({ food }) => {
             className="object-cover w-full mb-4 h-60 bg-cover bg-center"
           />
           <h2 className="mb-1 text-xl font-semibold">{foodName}</h2>
+
           <div className="flex py-2 justify-between items-center">
             <p className="">
-              Expire Date : {new Date(expiredDate).toLocaleDateString()}
+              <span className="font-semibold">Expire Date</span> :{" "}
+              {new Date(expiredDate).toLocaleDateString()}
             </p>
-            <p>Quantity : {foodQuantity} servings</p>
+            <p>
+              <span className="font-semibold">Quantity</span> : {foodQuantity}{" "}
+              servings
+            </p>
           </div>
+          <p className="py-2">
+            <span className="font-semibold">Pickup Location</span> :{" "}
+            {pickupLocation}
+          </p>
+          <p className="flex items-center">
+            <span className="text-2xl pr-3 py-2">
+              <MdNote />
+            </span>
+            {notes}
+          </p>
         </div>
-        <div className="flex flex-wrap justify-between">
-          <div className="space-x-2">
-            <button
-              aria-label="Share this post"
-              type="button"
-              className="p-2 text-center"
-            >
-             
+        <div className="">
+          <Link to={`food/${_id}`}>
+            <button className=" w-full bg-[#ff6347] items-center text-white rounded-lg p-2 space-x-1.5">
+              View Details
             </button>
-            <button
-              aria-label="Bookmark this post"
-              type="button"
-              className="p-2"
-            >
-             
-            </button>
-          </div>
-          <div className="flex space-x-2 text-sm text-gray-400">
-            <button type="button" className="flex items-center p-1 space-x-1.5">
-              
-              
-            </button>
-            <button type="button" className="flex items-center p-1 space-x-1.5">
-             
-              
-            </button>
-          </div>
+          </Link>
         </div>
       </div>
+      
     </div>
   );
 };

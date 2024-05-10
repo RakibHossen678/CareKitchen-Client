@@ -1,9 +1,21 @@
-import { useLoaderData } from "react-router-dom";
+// import { useLoaderData } from "react-router-dom";
+import axios from "axios";
 import Banner from "../Components/Banner";
 import Feature from "../Components/Feature";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const foods = useLoaderData();
+  // const foods = useLoaderData();
+  const [foods, setFoods] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios(`http://localhost:5000/food`);
+      setFoods(data);
+    };
+    getData();
+  }, []);
+  console.log(foods);
   return (
     <div>
       <Banner></Banner>
@@ -19,9 +31,16 @@ const Home = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 ">
-          {foods.slice(0, 6).map((food) => (
+          {foods.map((food) => (
             <Feature key={food._id} food={food}></Feature>
           ))}
+        </div>
+        <div className="flex justify-center items-center mt-10">
+          <Link to='/availableFood'>
+            <button className="  bg-[#ff6347] items-center text-white rounded-lg p-2 space-x-1.5">
+              Show All
+            </button>
+          </Link>
         </div>
       </div>
     </div>

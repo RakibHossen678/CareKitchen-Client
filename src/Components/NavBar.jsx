@@ -34,7 +34,7 @@ const NavBar = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? "text-[#ff6347]" : "")}
-          to="availableFood"
+          to="/availableFood"
         >
           Available Foods
         </NavLink>
