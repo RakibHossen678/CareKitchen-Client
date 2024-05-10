@@ -6,14 +6,22 @@ import Feature from "../Components/Feature";
 const AvailableFood = () => {
   const [foods, setFoods] = useState([]);
   const [sort,setSort]=useState('')
+  const [search,setSearch]=useState('')
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(`http://localhost:5000/availableFood?sort=${sort}`);
+      const { data } = await axios(`http://localhost:5000/availableFood?sort=${sort}&search=${search}`);
       setFoods(data);
     };
     getData();
-  }, [sort]);
-  console.log(sort);
+  }, [sort,search]);
+//   console.log(sort);
+  const handleSearch=e=>{
+    e.preventDefault()
+    const text=e.target.search.value
+    setSearch(text)
+
+  }
+  console.log(search)
   return (
     <div className="my-20">
       <div className="flex justify-center space-x-4">
@@ -32,17 +40,17 @@ const AvailableFood = () => {
             <option value="asc">Ascending Order</option>
           </select>
         </div>
-        <form>
-          <div className="flex p-1 overflow-hidden border rounded-full   focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
+        <form onSubmit={handleSearch}>
+          <div className="flex p-1 overflow-hidden border rounded-full    ">
             <input
-              className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
+              className="px-6 py-2  outline-none "
               type="text"
               name="search"
               placeholder="Enter Food Name"
               aria-label="Enter Food Name"
             />
 
-            <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-white uppercase transition-colors duration-300 transform bg-[#ff6347] rounded-full ">
+            <button type="submit" className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-white uppercase transition-colors duration-300 transform bg-[#ff6347] rounded-full ">
               Search
             </button>
           </div>
@@ -57,7 +65,7 @@ const AvailableFood = () => {
           offerings and treat yourself to a gastronomic journey like no other.
         </p>
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 ">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10">
         {foods
           .filter((food) => food.status === "available")
           .map((food) => (
