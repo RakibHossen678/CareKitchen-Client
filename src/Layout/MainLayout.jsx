@@ -4,10 +4,12 @@ import Footer from "../Components/Footer";
 
 const MainLayout = () => {
   return (
-    <div>
-      <div className="lg:w-11/12 mx-auto font-lato">
+    <div className="font-lato">
+      <div className="lg:w-11/12 mx-auto ">
         <NavBar></NavBar>
-        <Outlet></Outlet>
+        <div className="min-h-[calc(100vh-396px)]">
+          <Outlet></Outlet>
+        </div>
       </div>
       <Footer></Footer>
     </div>

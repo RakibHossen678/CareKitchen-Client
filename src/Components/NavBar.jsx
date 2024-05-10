@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const NavBar = () => {
-  const { user,logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const navLinks = (
     <>
       <li>
@@ -86,7 +86,7 @@ const NavBar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-12 rounded-full">
+              <div className="w-10 rounded-full">
                 <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
               </div>
             </div>
@@ -99,7 +99,7 @@ const NavBar = () => {
               </li>
 
               <li>
-                <button onClick={()=>logOut()}>Logout</button>
+                <button onClick={() => logOut()}>Logout</button>
               </li>
             </ul>
           </div>
@@ -119,7 +119,6 @@ const NavBar = () => {
               <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
               <span className="relative">Login</span>
             </Link>
-            
           </div>
         )}
       </div>
