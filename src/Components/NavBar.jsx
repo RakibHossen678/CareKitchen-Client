@@ -39,6 +39,14 @@ const NavBar = () => {
           Available Foods
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          className={({ isActive }) => (isActive ? "text-[#ff6347]" : "")}
+          to="/request"
+        >
+          My Food Request
+        </NavLink>
+      </li>
     </>
   );
   return (

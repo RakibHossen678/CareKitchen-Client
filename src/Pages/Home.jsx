@@ -31,7 +31,7 @@ const Home = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 ">
-          {foods.map((food) => (
+          {foods.slice(0,6).map((food) => (
             <Feature key={food._id} food={food}></Feature>
           ))}
         </div>
