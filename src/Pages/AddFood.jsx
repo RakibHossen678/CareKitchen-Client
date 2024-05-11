@@ -5,10 +5,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const AddFood = () => {
   const [startDate, setStartDate] = useState(new Date());
  
   const { user } = useContext(AuthContext);
+  const navigate=useNavigate()
   
   const handleAddFood = async (e) => {
     e.preventDefault();
@@ -40,6 +42,7 @@ const AddFood = () => {
       const { data } =await axios.post('http://localhost:5000/addFood',foodData);
       console.log(data);
       toast.success("Food added Successfully");
+      navigate('/myFood')
     } catch (err) {
       console.log(err);
       toast.error(err.message);
