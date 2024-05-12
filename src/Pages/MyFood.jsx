@@ -38,7 +38,7 @@ const MyFood = () => {
             text: "Your Food has been deleted.",
             icon: "success",
           });
-          getData()
+          getData();
         }
       }
     });
