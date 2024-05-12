@@ -7,6 +7,8 @@ const AvailableFood = () => {
   const [foods, setFoods] = useState([]);
   const [sort,setSort]=useState('')
   const [search,setSearch]=useState('')
+  const [layout,setLayout]=useState(false)
+  console.log(layout)
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(`http://localhost:5000/availableFood?sort=${sort}&search=${search}`);
@@ -22,9 +24,13 @@ const AvailableFood = () => {
 
   }
   console.log(search)
+  
   return (
     <div className="my-20">
       <div className="flex justify-center space-x-4">
+        <div>
+          <button onClick={()=>setLayout(!layout)} className="p-4 bg-[#ff6347] text-white rounded-full">Change Layout</button>
+        </div>
         <div>
           <select
           onChange={e=>{
@@ -65,7 +71,7 @@ const AvailableFood = () => {
           offerings and treat yourself to a gastronomic journey like no other.
         </p>
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10">
+      <div className={`grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10 ${layout ? 'lg:grid-cols-2 mx-auto justify-center' : 'lg:grid-cols-3'}`}>
         {foods
           .filter((food) => food.status === "available")
           .map((food) => (
