@@ -5,6 +5,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyFood = () => {
   const { user } = useContext(AuthContext);
@@ -75,13 +76,13 @@ const MyFood = () => {
                 <td>{food.pickupLocation}</td>
                 <td>{new Date(food.expiredDate).toLocaleDateString()}</td>
                 <td>{food.status}</td>
-                <td>
+                <td className="flex">
                   <button onClick={() => handleDelete(food._id)}>
                     <MdDelete className="text-xl  text-[#ff6347]" />
                   </button>
-                  <button>
+                  <Link to={`/updateFood/${food._id}`}>
                     <FaEdit className="text-lg ml-2 text-[#ff6347]" />
-                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}
