@@ -1,15 +1,15 @@
 import { MdNote } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
 
-import { useContext, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useAuth from "../Hooks/useAuth";
 
 const FoodDetails = () => {
   const food = useLoaderData();
-  console.log(food)
-  const { user } = useContext(AuthContext);
+  console.log(food);
+  const { user } = useAuth();
   const [note, setNotes] = useState("");
   const {
     _id,
@@ -43,14 +43,16 @@ const FoodDetails = () => {
     };
     console.log(foodData);
 
-    try{
-        const {data}=await axios.put(`http://localhost:5000/food/${_id}`,foodData)
-        console.log(data)
-        toast.success('Request successfully added')
-    }
-    catch(err){
-        console.log(err)
-        toast.error(err.message)
+    try {
+      const { data } = await axios.put(
+        `http://localhost:5000/food/${_id}`,
+        foodData
+      );
+      console.log(data);
+      toast.success("Request successfully added");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
     }
   };
   return (

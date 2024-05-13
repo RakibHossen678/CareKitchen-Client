@@ -1,15 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import useAuth from "../Hooks/useAuth";
 
 const FoodRequest = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
 
   const [foods, setFoods] = useState([]);
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(
-        `http://localhost:5000/request/${user?.email}`,{withCredentials:true}
+        `http://localhost:5000/request/${user?.email}`,
+        { withCredentials: true }
       );
       setFoods(data);
     };

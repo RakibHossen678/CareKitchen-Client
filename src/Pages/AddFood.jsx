@@ -1,17 +1,17 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import addImg from "../assets/add_icon_green.png";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 const AddFood = () => {
   const [startDate, setStartDate] = useState(new Date());
- 
-  const { user } = useContext(AuthContext);
-  const navigate=useNavigate()
-  
+
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const handleAddFood = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -37,12 +37,15 @@ const AddFood = () => {
       status,
     };
     console.log(foodData);
-    
+
     try {
-      const { data } =await axios.post('http://localhost:5000/addFood',foodData);
+      const { data } = await axios.post(
+        "http://localhost:5000/addFood",
+        foodData
+      );
       console.log(data);
       toast.success("Food added Successfully");
-      navigate('/myFood')
+      navigate("/myFood");
     } catch (err) {
       console.log(err);
       toast.error(err.message);

@@ -3,13 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import loginAnimation from "../../assets/login.json";
 import Lottie from "lottie-react";
 import { FaGithub } from "react-icons/fa";
-import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
+import useAuth from "../../Hooks/useAuth";
 const Login = () => {
   const navigate = useNavigate();
-  const { signIn, signInWithGoogle ,signInWithGithub} = useContext(AuthContext);
+  const { signIn, signInWithGoogle, signInWithGithub } = useAuth();
   const handleSignIn = async (e) => {
     e.preventDefault();
     const form = e.target;

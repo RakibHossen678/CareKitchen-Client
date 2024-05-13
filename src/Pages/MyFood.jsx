@@ -1,20 +1,23 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 const MyFood = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const [foods, setFoods] = useState([]);
   useEffect(() => {
     getData();
   }, []);
   const getData = async () => {
-    const { data } = await axios(`http://localhost:5000/myFood/${user?.email}`,{withCredentials:true});
+    const { data } = await axios(
+      `http://localhost:5000/myFood/${user?.email}`,
+      { withCredentials: true }
+    );
     setFoods(data);
   };
   console.log(foods);

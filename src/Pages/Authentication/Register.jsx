@@ -2,13 +2,11 @@ import logo from "../../assets/Logo (2).png";
 import { Link, useNavigate } from "react-router-dom";
 import loginAnimation from "../../assets/login.json";
 import Lottie from "lottie-react";
-import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
+import useAuth from "../../Hooks/useAuth";
 const Register = () => {
-  const { createUser, updateUserProfile, user, setUser } =
-    useContext(AuthContext);
+  const { createUser, updateUserProfile, user, setUser } = useAuth();
   const navigate = useNavigate();
   const handleSubmitForm = async (e) => {
     e.preventDefault();
