@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const FoodRequest = () => {
   const { user } = useAuth();
 
-  const [foods, setFoods] = useState([]);
   const axiosSecure = useAxiosSecure();
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axiosSecure(`/request/${user?.email}`);
-      setFoods(data);
-    };
-    getData();
-  }, [user?.email, axiosSecure]);
+  const { data: foods = [] } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["food-request"],
+  });
+  const getData = async () => {
+    const { data } = await axiosSecure(`/request/${user?.email}`);
+    return data;
+  };
+
   console.log(foods);
   return (
     <div className="my-10">

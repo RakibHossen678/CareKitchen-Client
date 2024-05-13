@@ -1,16 +1,25 @@
-
 import { useEffect, useState } from "react";
 
 import Feature from "../Components/Feature";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+// import { useQuery } from "@tanstack/react-query";
 
 const AvailableFood = () => {
+  const axiosSecure = useAxiosSecure();
   const [foods, setFoods] = useState([]);
   const [sort, setSort] = useState("");
-  const axiosSecure = useAxiosSecure();
   const [search, setSearch] = useState("");
   const [layout, setLayout] = useState(false);
-  console.log(layout);
+  // const { data: foods = [] } = useQuery({
+  //   queryFn: () => getData(),
+  //   queryKey: ["available"],
+  // });
+  // const getData = async () => {
+  //   const { data } = await axiosSecure(
+  //     `/availableFood?sort=${sort}&search=${search}`
+  //   );
+  //   return data;
+  // };
   useEffect(() => {
     const getData = async () => {
       const { data } = await axiosSecure(
@@ -20,7 +29,7 @@ const AvailableFood = () => {
     };
     getData();
   }, [sort, search,axiosSecure]);
-  //   console.log(sort);
+    console.log(sort);
   const handleSearch = (e) => {
     e.preventDefault();
     const text = e.target.search.value;
@@ -83,7 +92,7 @@ const AvailableFood = () => {
         </p>
       </div>
       <div
-        className={`grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10 ${
+        className={`grid  md:grid-cols-2 grid-cols-1 gap-6 my-10 ${
           layout ? "lg:grid-cols-2 mx-auto justify-center" : "lg:grid-cols-3"
         }`}
       >

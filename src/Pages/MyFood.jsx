@@ -1,23 +1,25 @@
 
-import { useEffect } from "react";
-import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const MyFood = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [foods, setFoods] = useState([]);
-  useEffect(() => {
-    getData();
-  }, []);
+  // const [foods, setFoods] = useState([]);
+
+  const {data:foods=[],refetch}=useQuery({
+    queryFn:()=>getData(),
+    queryKey:['myFoods']
+  })
+  
   const getData = async () => {
     const { data } = await axiosSecure(`/myFood/${user?.email}`);
-    setFoods(data);
+    return data
   };
   console.log(foods);
   const handleDelete = async (id) => {
@@ -38,7 +40,7 @@ const MyFood = () => {
             text: "Your Food has been deleted.",
             icon: "success",
           });
-          getData();
+          refetch()
         }
       }
     });

@@ -1,20 +1,25 @@
-// import { useLoaderData } from "react-router-dom";
-import axios from "axios";
 import Banner from "../Components/Banner";
 import Feature from "../Components/Feature";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import Lottie from "lottie-react";
+import waitImg from '../assets/loading (1).json'
 
 const Home = () => {
-  // const foods = useLoaderData();
-  const [foods, setFoods] = useState([]);
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios(`http://localhost:5000/food`);
-      setFoods(data);
-    };
-    getData();
-  }, []);
+  const axiosSecure = useAxiosSecure();
+  const { data: foods=[],isLoading } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["Features"],
+  });
+  const getData = async () => {
+    const { data } = await axiosSecure(`/food`);
+    return data;
+  };
+  if(isLoading){
+    return <Lottie className="w-24" animationData={waitImg}></Lottie>
+  }
+
   console.log(foods);
   return (
     <div>
@@ -36,7 +41,7 @@ const Home = () => {
           ))}
         </div>
         <div className="flex justify-center items-center mt-10">
-          <Link to='/availableFood'>
+          <Link to="/availableFood">
             <button className="  bg-[#ff6347] items-center text-white rounded-lg p-2 space-x-1.5">
               Show All
             </button>
