@@ -63,7 +63,7 @@ const Feature = ({ food }) => {
           </p>
         </div>
         <div className="">
-          <Link to={`/${_id}`}>
+          <Link to={`/details/${_id}`}>
             <button className=" w-full bg-[#ff6347] items-center text-white rounded-lg p-2 space-x-1.5">
               View Details
             </button>

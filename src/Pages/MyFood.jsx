@@ -1,26 +1,40 @@
-
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const MyFood = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   // const [foods, setFoods] = useState([]);
 
-  const {data:foods=[],refetch}=useQuery({
-    queryFn:()=>getData(),
-    queryKey:['myFoods']
-  })
-  
+  const { data: foods = [], refetch } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["myFoods"],
+  });
+
   const getData = async () => {
     const { data } = await axiosSecure(`/myFood/${user?.email}`);
-    return data
+    return data;
   };
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ id }) => {
+      const { data } = await axiosSecure.delete(`/myFood/${id}`);
+      console.log(data);
+    },
+    onSuccess: () => {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your Food has been deleted.",
+        icon: "success",
+      });
+    },
+  });
+
   console.log(foods);
   const handleDelete = async (id) => {
     Swal.fire({
@@ -33,15 +47,17 @@ const MyFood = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axiosSecure.delete(`/myFood/${id}`);
-        if (data.deletedCount > 0) {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your Food has been deleted.",
-            icon: "success",
-          });
-          refetch()
-        }
+        await mutateAsync({ id });
+        refetch();
+        //   const { data } = await axiosSecure.delete(`/myFood/${id}`);
+        //   if (data.deletedCount > 0) {
+        //     Swal.fire({
+        //       title: "Deleted!",
+        //       text: "Your Food has been deleted.",
+        //       icon: "success",
+        //     });
+        //     refetch()
+        //   }
       }
     });
   };

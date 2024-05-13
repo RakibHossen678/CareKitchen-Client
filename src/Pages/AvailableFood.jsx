@@ -1,26 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Feature from "../Components/Feature";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
-
+import { useQuery } from "@tanstack/react-query";
 
 const AvailableFood = () => {
   const axiosSecure = useAxiosSecure();
-  const [foods, setFoods] = useState([]);
+  // const [foods, setFoods] = useState([]);
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [layout, setLayout] = useState(false);
- 
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axiosSecure(
-        `/availableFood?sort=${sort}&search=${search}`
-      );
-      setFoods(data);
-    };
-    getData();
-  }, [sort, search,axiosSecure]);
-    console.log(sort);
+  const { data: foods = [], refetch } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["available", sort, search],
+  });
+  const getData = async () => {
+    const { data } = await axiosSecure(
+      `/availableFood?sort=${sort}&search=${search}`
+    );
+    refetch();
+    return data;
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     const text = e.target.search.value;
