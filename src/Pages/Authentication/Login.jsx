@@ -6,6 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
   const { signIn, signInWithGoogle } = useContext(AuthContext);
@@ -28,24 +29,36 @@ const Login = () => {
   };
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle()
-      toast.success('Sign in Successful')
-      navigate('/')
+      const result = await signInWithGoogle();
+      const { data } = await axios.post(
+        "http://localhost:5000/jwt",
+        { email: result?.user?.email },
+        { withCredentials: true }
+      );
+      console.log(data);
+      toast.success("Sign in Successful");
+      navigate("/");
     } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
+      console.log(err);
+      toast.error(err?.message);
     }
-  }
+  };
   const handleGithubSignIn = async () => {
     try {
-      await signInWithGoogle()
-      toast.success('Sign in Successful')
-      navigate('/')
+      const result = await signInWithGoogle();
+      const { data } = await axios.post(
+        "http://localhost:5000/jwt",
+        { email: result?.user?.email },
+        { withCredentials: true }
+      );
+      console.log(data);
+      toast.success("Sign in Successful");
+      navigate("/");
     } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
+      console.log(err);
+      toast.error(err?.message);
     }
-  }
+  };
   return (
     <div className="my-10">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
@@ -62,7 +75,10 @@ const Login = () => {
             Welcome back!
           </p>
 
-          <button onClick={handleGoogleSignIn} className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <button
+            onClick={handleGoogleSignIn}
+            className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
             <div className="px-4 py-2">
               <svg className="w-6 h-6" viewBox="0 0 40 40">
                 <path
@@ -88,7 +104,10 @@ const Login = () => {
               Sign in with Google
             </span>
           </button>
-          <button onClick={handleGithubSignIn} className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <button
+            onClick={handleGithubSignIn}
+            className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
             <div className="px-4 py-2">
               <FaGithub className="text-2xl" />
             </div>
@@ -135,7 +154,10 @@ const Login = () => {
             </div>
 
             <div className="mt-6">
-              <button type="submit" className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#ff6347] rounded-lg hover:bg-[#de2d0d] focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+              <button
+                type="submit"
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#ff6347] rounded-lg hover:bg-[#de2d0d] focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+              >
                 Sign In
               </button>
             </div>

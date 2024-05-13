@@ -5,9 +5,11 @@ import Lottie from "lottie-react";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import axios from "axios";
 const Register = () => {
-    const {createUser, updateUserProfile, user, setUser}=useContext(AuthContext)
-    const navigate=useNavigate()
+  const { createUser, updateUserProfile, user, setUser } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -16,17 +18,22 @@ const Register = () => {
     const photo = form.photo.value;
     const pass = form.password.value;
     console.log({ email, pass, name, photo });
-    try{
-        const result=await createUser(email,pass)
-        console.log(result)
-        await updateUserProfile(name,photo)
-        setUser({...user,photoURL:photo,displayName:name})
-        navigate('/')
-        toast.success('User created successfully')
-    }
-    catch(err){
-        console.log(err)
-        toast.error(err?.message)
+    try {
+      const result = await createUser(email, pass);
+      console.log(result);
+      await updateUserProfile(name, photo);
+      setUser({ ...result?.user, photoURL: photo, displayName: name });
+      const { data } = await axios.post(
+        "http://localhost:5000/jwt",
+        { email: result?.user?.email },
+        { withCredentials: true }
+      );
+      console.log(data);
+      navigate("/");
+      toast.success("User created successfully");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
     }
   };
   return (
