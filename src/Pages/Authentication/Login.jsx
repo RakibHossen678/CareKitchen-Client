@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
-  const { signIn, signInWithGoogle } = useContext(AuthContext);
+  const { signIn, signInWithGoogle ,signInWithGithub} = useContext(AuthContext);
   const handleSignIn = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -20,6 +20,12 @@ const Login = () => {
       //User Login
       const result = await signIn(email, pass);
       console.log(result);
+      const { data } = await axios.post(
+        "http://localhost:5000/jwt",
+        { email: result?.user?.email },
+        { withCredentials: true }
+      );
+      console.log(data);
       navigate("/");
       toast.success("Sign in Successfully");
     } catch (err) {
@@ -45,7 +51,8 @@ const Login = () => {
   };
   const handleGithubSignIn = async () => {
     try {
-      const result = await signInWithGoogle();
+      const result = await signInWithGithub();
+      console.log("result", result);
       const { data } = await axios.post(
         "http://localhost:5000/jwt",
         { email: result?.user?.email },

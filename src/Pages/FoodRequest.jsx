@@ -9,7 +9,7 @@ const FoodRequest = () => {
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(
-        `http://localhost:5000/request/${user?.email}`
+        `http://localhost:5000/request/${user?.email}`,{withCredentials:true}
       );
       setFoods(data);
     };

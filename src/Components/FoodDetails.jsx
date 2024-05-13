@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 const FoodDetails = () => {
   const food = useLoaderData();
+  console.log(food)
   const { user } = useContext(AuthContext);
   const [note, setNotes] = useState("");
   const {
@@ -61,8 +62,8 @@ const FoodDetails = () => {
         <div className="flex space-x-2 py-3">
           <img className="w-14 rounded-lg" src={donor?.image} alt="" />
           <div>
-            <h1>{donor.name}</h1>
-            <h1>{donor.email}</h1>
+            <h1>{donor?.name}</h1>
+            <h1>{donor?.email}</h1>
           </div>
         </div>
         <div>
