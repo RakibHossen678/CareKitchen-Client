@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { motion } from "framer-motion";
 import Feature from "../Components/Feature";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -74,7 +74,18 @@ const AvailableFood = () => {
           </div>
         </form>
       </div>
-      <div className="max-w-xl mx-auto text-center my-9">
+      <motion.div
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ y: -10, opacity: 1 }}
+        transition={{
+          delay: 0.2,
+          X: { type: "spring", stiffness: 60 },
+          opacity: { duration: 1 },
+          ease: "easeIn",
+          duration: 1,
+        }}
+        className="max-w-xl mx-auto text-center my-9"
+      >
         <h1 className="text-5xl font-semibold my-3">Available Foods</h1>
         <p className="py-3">
           Indulge in a delightful array of culinary delights crafted to
@@ -82,7 +93,7 @@ const AvailableFood = () => {
           we've curated a selection that caters to every palate. Dive into our
           offerings and treat yourself to a gastronomic journey like no other.
         </p>
-      </div>
+      </motion.div>
       <div
         className={`grid  md:grid-cols-2 grid-cols-1 gap-6 my-10 ${
           layout ? "lg:grid-cols-2 mx-auto justify-center" : "lg:grid-cols-3"

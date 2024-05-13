@@ -1,5 +1,6 @@
 import { MdNote } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
+import { motion } from "framer-motion"
 
 import { useState } from "react";
 
@@ -75,9 +76,25 @@ const FoodDetails = () => {
   return (
     <div className="flex justify-center items-center my-20 gap-10">
       <div className="">
-        <img className="w-full h-[400px] " src={foodImg} alt="" />
+        <motion.img initial={{ opacity: 0, x: -700 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{
+                  delay: 0.2,
+                  X: { type: "spring", stiffness: 60 },
+                  opacity: { duration: 1 },
+                  ease: "easeIn",
+                  duration: 1,
+                }} className="w-full h-[400px] " src={foodImg} alt="" />
       </div>
-      <div className="">
+      <motion.div initial={{ opacity: 0, x: 300 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{
+                  delay: 0.2,
+                  X: { type: "spring", stiffness: 60 },
+                  opacity: { duration: 1 },
+                  ease: "easeIn",
+                  duration: 1,
+                }} className="">
         <div className="flex space-x-2 py-3">
           <img className="w-14 rounded-lg" src={donor?.image} alt="" />
           <div>
@@ -273,7 +290,7 @@ const FoodDetails = () => {
             </div>
           </dialog>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

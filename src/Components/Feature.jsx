@@ -1,6 +1,6 @@
 import { MdNote } from "react-icons/md";
 import { Link } from "react-router-dom";
-
+import { motion } from "framer-motion";
 const Feature = ({ food }) => {
   const {
     _id,
@@ -14,7 +14,10 @@ const Feature = ({ food }) => {
   } = food;
   // console.log(food);
   return (
-    <div>
+    <motion.div
+      whileHover={{ scale: 1.1 }}
+      transition={{ type: "spring", stiffness: 400, damping: 10, delay: 0.2 }}
+    >
       <div className="flex flex-col max-w-md p-4 space-y-6 overflow-hidden rounded-lg shadow-md ">
         <div className="flex space-x-4">
           <img
@@ -70,8 +73,7 @@ const Feature = ({ food }) => {
           </Link>
         </div>
       </div>
-      
-    </div>
+    </motion.div>
   );
 };
 
