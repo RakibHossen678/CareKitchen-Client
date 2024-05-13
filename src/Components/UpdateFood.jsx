@@ -2,15 +2,16 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const UpdateFood = () => {
   const food = useLoaderData();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const [startDate, setStartDate] = useState(new Date(food.expiredDate));
   console.log(food);
-  const { _id,foodName, foodImg, foodQuantity, pickupLocation, notes } = food;
+  const { _id, foodName, foodImg, foodQuantity, pickupLocation, notes } = food;
   const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -29,12 +30,10 @@ const UpdateFood = () => {
       notes,
     };
     console.log(foodData);
-    const { data } =await axios.put(
-      `http://localhost:5000/update/${_id}`,foodData
-    );
-    console.log(data)
-    toast.success('Updated successfully')
-    navigate('/myFood')
+    const { data } = await axiosSecure.put(`/update/${_id}`, foodData);
+    console.log(data);
+    toast.success("Updated successfully");
+    navigate("/myFood");
   };
   return (
     <div className="lg:w-9/12 mx-auto">

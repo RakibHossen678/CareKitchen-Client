@@ -1,23 +1,25 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 
 import Feature from "../Components/Feature";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const AvailableFood = () => {
   const [foods, setFoods] = useState([]);
   const [sort, setSort] = useState("");
+  const axiosSecure = useAxiosSecure();
   const [search, setSearch] = useState("");
   const [layout, setLayout] = useState(false);
   console.log(layout);
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(
-        `http://localhost:5000/availableFood?sort=${sort}&search=${search}`
+      const { data } = await axiosSecure(
+        `/availableFood?sort=${sort}&search=${search}`
       );
       setFoods(data);
     };
     getData();
-  }, [sort, search]);
+  }, [sort, search,axiosSecure]);
   //   console.log(sort);
   const handleSearch = (e) => {
     e.preventDefault();

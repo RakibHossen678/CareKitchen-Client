@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import useAuth from "../Hooks/useAuth";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const FoodRequest = () => {
   const { user } = useAuth();
 
   const [foods, setFoods] = useState([]);
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(
-        `http://localhost:5000/request/${user?.email}`,
-        { withCredentials: true }
-      );
+      const { data } = await axiosSecure(`/request/${user?.email}`);
       setFoods(data);
     };
     getData();
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
   console.log(foods);
   return (
     <div className="my-10">

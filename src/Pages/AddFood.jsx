@@ -6,11 +6,13 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 const AddFood = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   const { user } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleAddFood = async (e) => {
     e.preventDefault();
@@ -39,8 +41,8 @@ const AddFood = () => {
     console.log(foodData);
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/addFood",
+      const { data } = await axiosSecure.post(
+        "/addFood",
         foodData
       );
       console.log(data);
