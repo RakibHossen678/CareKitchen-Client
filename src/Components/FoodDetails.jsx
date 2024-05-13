@@ -5,10 +5,13 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../Hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const FoodDetails = () => {
   const food = useLoaderData();
   console.log(food);
+  const axiosSecure=useAxiosSecure()
   const { user } = useAuth();
   const [note, setNotes] = useState("");
   const {
@@ -22,6 +25,19 @@ const FoodDetails = () => {
     notes,
   } = food;
   console.log(food);
+  const {mutateAsync}= useMutation({
+    mutationFn:async({_id,foodData})=>{
+      const { data } = await axiosSecure.put(
+        `/food/${_id}`,
+        foodData
+      );
+      console.log(data)
+    },
+    onSuccess:()=>{
+      toast.success("Request successfully added");
+    }
+
+  })
   const handleRequest = async () => {
     const status = "requested";
     const foodData = {
@@ -42,18 +58,19 @@ const FoodDetails = () => {
       status,
     };
     console.log(foodData);
+    await mutateAsync({_id,foodData})
 
-    try {
-      const { data } = await axios.put(
-        `http://localhost:5000/food/${_id}`,
-        foodData
-      );
-      console.log(data);
-      toast.success("Request successfully added");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-    }
+    // try {
+    //   const { data } = await axios.put(
+    //     `http://localhost:5000/food/${_id}`,
+    //     foodData
+    //   );
+    //   console.log(data);
+    //   toast.success("Request successfully added");
+    // } catch (err) {
+    //   console.log(err);
+    //   toast.error(err.message);
+    // }
   };
   return (
     <div className="flex justify-center items-center my-20 gap-10">

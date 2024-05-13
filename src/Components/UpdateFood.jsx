@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useMutation } from "@tanstack/react-query";
 
 const UpdateFood = () => {
   const food = useLoaderData();
@@ -12,6 +13,16 @@ const UpdateFood = () => {
   const [startDate, setStartDate] = useState(new Date(food.expiredDate));
   console.log(food);
   const { _id, foodName, foodImg, foodQuantity, pickupLocation, notes } = food;
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ foodData, _id }) => {
+      const { data } = await axiosSecure.put(`/update/${_id}`, foodData);
+      console.log(data);
+    },
+    onSuccess: () => {
+      toast.success("Updated successfully");
+      navigate("/myFood");
+    },
+  });
   const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,10 +41,7 @@ const UpdateFood = () => {
       notes,
     };
     console.log(foodData);
-    const { data } = await axiosSecure.put(`/update/${_id}`, foodData);
-    console.log(data);
-    toast.success("Updated successfully");
-    navigate("/myFood");
+    await mutateAsync({ foodData, _id });
   };
   return (
     <div className="lg:w-9/12 mx-auto">

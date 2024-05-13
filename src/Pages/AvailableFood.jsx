@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import Feature from "../Components/Feature";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
-// import { useQuery } from "@tanstack/react-query";
+
 
 const AvailableFood = () => {
   const axiosSecure = useAxiosSecure();
@@ -10,16 +10,7 @@ const AvailableFood = () => {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [layout, setLayout] = useState(false);
-  // const { data: foods = [] } = useQuery({
-  //   queryFn: () => getData(),
-  //   queryKey: ["available"],
-  // });
-  // const getData = async () => {
-  //   const { data } = await axiosSecure(
-  //     `/availableFood?sort=${sort}&search=${search}`
-  //   );
-  //   return data;
-  // };
+ 
   useEffect(() => {
     const getData = async () => {
       const { data } = await axiosSecure(
