@@ -2,7 +2,7 @@ import { MdNote } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
 
 import { useState } from "react";
-import axios from "axios";
+
 import toast from "react-hot-toast";
 import useAuth from "../Hooks/useAuth";
 import { useMutation } from "@tanstack/react-query";

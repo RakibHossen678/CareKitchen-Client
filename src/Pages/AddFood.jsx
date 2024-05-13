@@ -3,17 +3,26 @@ import addImg from "../assets/add_icon_green.png";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useMutation } from "@tanstack/react-query";
 const AddFood = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   const { user } = useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ foodData }) => {
+      const { data } = await axiosSecure.post("/addFood", foodData);
+      console.log(data)
+    },
+    onSuccess:()=>{
+      toast.success("Food added Successfully");
+      navigate("/myFood");
+    }
+  });
   const handleAddFood = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -39,19 +48,17 @@ const AddFood = () => {
       status,
     };
     console.log(foodData);
+    await mutateAsync({ foodData });
 
-    try {
-      const { data } = await axiosSecure.post(
-        "/addFood",
-        foodData
-      );
-      console.log(data);
-      toast.success("Food added Successfully");
-      navigate("/myFood");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-    }
+    // try {
+    //   const { data } = await axiosSecure.post("/addFood", foodData);
+    //   console.log(data);
+    //   toast.success("Food added Successfully");
+    //   navigate("/myFood");
+    // } catch (err) {
+    //   console.log(err);
+    //   toast.error(err.message);
+    // }
   };
   return (
     <div className="my-20">

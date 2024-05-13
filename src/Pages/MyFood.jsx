@@ -63,7 +63,7 @@ const MyFood = () => {
           </thead>
           <tbody>
             {foods.map((food, idx) => (
-              <tr key={food._id}>
+              <tr key={food._id} className="">
                 <th>{idx + 1}</th>
                 <td>
                   {" "}
@@ -78,7 +78,7 @@ const MyFood = () => {
                 <td>{food.pickupLocation}</td>
                 <td>{new Date(food.expiredDate).toLocaleDateString()}</td>
                 <td>{food.status}</td>
-                <td className="flex">
+                <td className="flex items-center mt-4">
                   <button onClick={() => handleDelete(food._id)}>
                     <MdDelete className="text-xl  text-[#ff6347]" />
                   </button>
