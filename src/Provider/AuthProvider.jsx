@@ -1,7 +1,7 @@
-
 import { createContext, useEffect, useState } from "react";
+import PropTypes from 'prop-types'
 import {
-    GithubAuthProvider,
+  GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
@@ -13,7 +13,6 @@ import {
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import axios from "axios";
-
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -45,8 +44,10 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setLoading(true);
-   const {data}= await axios('http://localhost:5000/logout',{withCredentials:true})
-   console.log(data)
+    const { data } = await axios("http://localhost:5000/logout", {
+      withCredentials: true,
+    });
+    console.log(data);
     return signOut(auth);
   };
 
@@ -57,11 +58,10 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log( currentUser);
+      console.log(currentUser);
       setLoading(false);
     });
     return () => {
@@ -79,12 +79,16 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     logOut,
     updateUserProfile,
-    signInWithGithub
+    signInWithGithub,
   };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node,
 };
 
 export default AuthProvider;

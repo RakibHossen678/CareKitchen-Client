@@ -86,7 +86,7 @@ const Banner = () => {
                   Welcome to CareKitchen, where every act of generosity brings
                   us closer to ending hunger. Join hands with us as we work
                   towards a future where no one goes to bed hungry. Your support
-                  matters, whether it's through food donations, volunteering, or
+                  matters, whether it is through food donations, volunteering, or
                   spreading awareness.
                 </p>
                 <button className="btn border-none text-white bg-[#ff6347]">
@@ -138,7 +138,7 @@ const Banner = () => {
                   Take a stand against hunger with CareKitchen. Together, we can
                   make a tangible difference in the lives of those facing food
                   insecurity. Explore ways to get involved, from donating
-                  surplus food to volunteering your time. Let's create a world
+                  surplus food to volunteering your time. Let us create a world
                   where everyone has access to nutritious meals.
                 </p>
                 <button className="btn border-none text-white bg-[#ff6347]">

@@ -1,6 +1,6 @@
 import { MdNote } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 const FoodDetails = () => {
   const food = useLoaderData();
   console.log(food);
-  const axiosSecure=useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [note, setNotes] = useState("");
   const {
@@ -26,19 +26,15 @@ const FoodDetails = () => {
     notes,
   } = food;
   console.log(food);
-  const {mutateAsync}= useMutation({
-    mutationFn:async({_id,foodData})=>{
-      const { data } = await axiosSecure.put(
-        `/food/${_id}`,
-        foodData
-      );
-      console.log(data)
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ _id, foodData }) => {
+      const { data } = await axiosSecure.put(`/food/${_id}`, foodData);
+      console.log(data);
     },
-    onSuccess:()=>{
+    onSuccess: () => {
       toast.success("Request successfully added");
-    }
-
-  })
+    },
+  });
   const handleRequest = async () => {
     const status = "requested";
     const foodData = {
@@ -59,7 +55,7 @@ const FoodDetails = () => {
       status,
     };
     console.log(foodData);
-    await mutateAsync({_id,foodData})
+    await mutateAsync({ _id, foodData });
 
     // try {
     //   const { data } = await axios.put(
@@ -74,27 +70,35 @@ const FoodDetails = () => {
     // }
   };
   return (
-    <div className="flex justify-center items-center my-20 gap-10">
+    <div className="flex lg:flex-row flex-col justify-center items-center my-20 gap-10">
       <div className="">
-        <motion.img initial={{ opacity: 0, x: -700 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{
-                  delay: 0.2,
-                  X: { type: "spring", stiffness: 60 },
-                  opacity: { duration: 1 },
-                  ease: "easeIn",
-                  duration: 1,
-                }} className="w-full h-[400px] " src={foodImg} alt="" />
+        <motion.img
+          initial={{ opacity: 0, x: -700 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            X: { type: "spring", stiffness: 60 },
+            opacity: { duration: 1 },
+            ease: "easeIn",
+            duration: 1,
+          }}
+          className="w-full h-[400px] "
+          src={foodImg}
+          alt=""
+        />
       </div>
-      <motion.div initial={{ opacity: 0, x: 300 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{
-                  delay: 0.2,
-                  X: { type: "spring", stiffness: 60 },
-                  opacity: { duration: 1 },
-                  ease: "easeIn",
-                  duration: 1,
-                }} className="">
+      <motion.div
+        initial={{ opacity: 0, x: 300 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{
+          delay: 0.2,
+          X: { type: "spring", stiffness: 60 },
+          opacity: { duration: 1 },
+          ease: "easeIn",
+          duration: 1,
+        }}
+        className=""
+      >
         <div className="flex space-x-2 py-3">
           <img className="w-14 rounded-lg" src={donor?.image} alt="" />
           <div>

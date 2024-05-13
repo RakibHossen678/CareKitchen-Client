@@ -90,7 +90,7 @@ const AvailableFood = () => {
         <p className="py-3">
           Indulge in a delightful array of culinary delights crafted to
           tantalize your taste buds. From savory snacks to mouthwatering mains,
-          we've curated a selection that caters to every palate. Dive into our
+          we have curated a selection that caters to every palate. Dive into our
           offerings and treat yourself to a gastronomic journey like no other.
         </p>
       </motion.div>

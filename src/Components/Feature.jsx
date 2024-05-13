@@ -1,6 +1,7 @@
 import { MdNote } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import PropTypes from 'prop-types'
 const Feature = ({ food }) => {
   const {
     _id,
@@ -76,5 +77,8 @@ const Feature = ({ food }) => {
     </motion.div>
   );
 };
+Feature.propTypes={
+  food:PropTypes.object
+}
 
 export default Feature;

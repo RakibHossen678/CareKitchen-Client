@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 const Register = () => {
-  const { createUser, updateUserProfile, user, setUser } = useAuth();
+  const { createUser, updateUserProfile,  setUser } = useAuth();
   const navigate = useNavigate();
   const handleSubmitForm = async (e) => {
     e.preventDefault();

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import PropTypes from 'prop-types'; 
 import Lottie from "lottie-react";
 import waitImg from '../assets/loading (1).json'
 import { Navigate, useLocation } from "react-router-dom";
@@ -15,5 +16,7 @@ const PrivateRoute = ({children}) => {
     }
     return <Navigate state={location?.pathname} to='/login'></Navigate>
 };
-
+PrivateRoute.propTypes = {
+    children: PropTypes.node,
+  };
 export default PrivateRoute;
