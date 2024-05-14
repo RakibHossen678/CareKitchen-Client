@@ -6,6 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet";
 const Login = () => {
   const navigate = useNavigate();
   const { signIn, signInWithGoogle, signInWithGithub } = useAuth();
@@ -67,6 +68,9 @@ const Login = () => {
   };
   return (
     <div className="my-10">
+      <Helmet>
+        <title>CareKitchen || Login</title>
+      </Helmet>
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
         <div className="hidden bg-cover lg:block lg:w-1/2">
           <Lottie animationData={loginAnimation} loop={true} />

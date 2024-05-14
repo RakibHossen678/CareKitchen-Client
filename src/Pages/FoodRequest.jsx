@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -18,6 +19,9 @@ const FoodRequest = () => {
   console.log(foods);
   return (
     <div className="my-10">
+      <Helmet>
+        <title>CareKitchen || Requested Food</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table ">
           <thead>

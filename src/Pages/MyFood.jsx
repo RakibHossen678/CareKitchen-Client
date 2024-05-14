@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 
 const MyFood = () => {
   const { user } = useAuth();
@@ -63,6 +64,9 @@ const MyFood = () => {
   };
   return (
     <div className="my-10">
+      <Helmet>
+        <title>CareKitchen || Manage Food</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table ">
           <thead>

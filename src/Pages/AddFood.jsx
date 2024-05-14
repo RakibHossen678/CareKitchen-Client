@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 const AddFood = () => {
   const [startDate, setStartDate] = useState(new Date());
 
@@ -62,6 +63,9 @@ const AddFood = () => {
   };
   return (
     <div className="my-20">
+      <Helmet>
+        <title>CareKitchen || Add Food</title>
+      </Helmet>
       <section className="max-w-5xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 my-4">
         <div className="flex justify-center items-center space-x-3 mb-9">
           <img src={addImg} alt="" />

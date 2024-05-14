@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Feature from "../Components/Feature";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 
 const AvailableFood = () => {
   const axiosSecure = useAxiosSecure();
@@ -31,16 +32,19 @@ const AvailableFood = () => {
 
   return (
     <div className="my-20">
-      <div className="flex justify-center space-x-4">
+      <Helmet>
+        <title>CareKitchen || Available Food</title>
+      </Helmet>
+      <div className="flex justify-center lg:flex-row flex-col lg:space-x-4 space-y-4 lg:space-y-0">
         <div>
           <button
             onClick={() => setLayout(!layout)}
-            className="p-4 bg-[#ff6347] text-white rounded-full"
+            className="p-4 w-full bg-[#ff6347] text-white rounded-full"
           >
             Change Layout
           </button>
         </div>
-        <div>
+        <div className="">
           <select
             onChange={(e) => {
               setSort(e.target.value);
@@ -48,7 +52,7 @@ const AvailableFood = () => {
             value={sort}
             name="sort"
             id="sort"
-            className="border p-4 rounded-full"
+            className="border w-full p-4 rounded-full"
           >
             <option value="">Sort By Food Expire Date</option>
             <option value="dsc">Descending Order</option>
@@ -67,7 +71,7 @@ const AvailableFood = () => {
 
             <button
               type="submit"
-              className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-white uppercase transition-colors duration-300 transform bg-[#ff6347] rounded-full "
+              className="px-1 w-full md:px-4 py-3 text-sm font-medium tracking-wider text-white uppercase transition-colors duration-300 transform bg-[#ff6347] rounded-full "
             >
               Search
             </button>

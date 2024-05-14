@@ -5,6 +5,7 @@ import Lottie from "lottie-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet";
 const Register = () => {
   const { createUser, updateUserProfile,  setUser } = useAuth();
   const navigate = useNavigate();
@@ -36,6 +37,9 @@ const Register = () => {
   };
   return (
     <div className="my-10">
+      <Helmet>
+        <title>CareKitchen || Register</title>
+      </Helmet>
       <div className="flex items-center w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
         <div className="hidden  bg-cover lg:block lg:w-1/2">
           <Lottie animationData={loginAnimation} loop={true} />

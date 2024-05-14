@@ -6,6 +6,7 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import Lottie from "lottie-react";
 import waitImg from "../assets/loading (1).json";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const { data: foods = [], isLoading } = useQuery({
@@ -23,6 +24,9 @@ const Home = () => {
   console.log(foods);
   return (
     <div>
+       <Helmet>
+        <title>CareKitchen || Home</title>
+      </Helmet>
       <Banner></Banner>
       <div className="my-20">
         <motion.div

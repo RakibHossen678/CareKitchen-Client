@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 
 const UpdateFood = () => {
   const food = useLoaderData();
@@ -45,6 +46,9 @@ const UpdateFood = () => {
   };
   return (
     <div className="lg:w-9/12 mx-auto">
+      <Helmet>
+        <title>CareKitchen || Update</title>
+      </Helmet>
       <div className="py-3">
         <h1 className="text-center text-4xl font-semibold">Update Food</h1>
       </div>
