@@ -7,6 +7,7 @@ import Lottie from "lottie-react";
 import waitImg from "../assets/loading (1).json";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
+import Volunteer from "../Components/Volunteer";
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const { data: foods = [], isLoading } = useQuery({
@@ -63,6 +64,7 @@ const Home = () => {
           </Link>
         </div>
       </div>
+      <Volunteer></Volunteer>
     </div>
   );
 };
