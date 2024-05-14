@@ -8,6 +8,7 @@ import waitImg from "../assets/loading (1).json";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import Volunteer from "../Components/Volunteer";
+import Inspire from "../Components/Inspire";
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const { data: foods = [], isLoading } = useQuery({
@@ -65,6 +66,7 @@ const Home = () => {
         </div>
       </div>
       <Volunteer></Volunteer>
+      <Inspire></Inspire>
     </div>
   );
 };
