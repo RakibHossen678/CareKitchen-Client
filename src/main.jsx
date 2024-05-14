@@ -53,7 +53,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/food/${params.id}`),
+          fetch(`https://assignment11-sand-six.vercel.app/food/${params.id}`),
       },
       {
         path: "/availableFood",
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/update/${params.id}`),
+          fetch(`https://assignment11-sand-six.vercel.app/update/${params.id}`),
       },
       {
         path: "/request",

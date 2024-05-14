@@ -15,13 +15,13 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const pass = form.password.value;
-    console.log({ email, pass });
+    // console.log({ email, pass });
     try {
       //User Login
       const result = await signIn(email, pass);
       console.log(result);
       const { data } = await axios.post(
-        "http://localhost:5000/jwt",
+        "https://assignment11-sand-six.vercel.app/jwt",
         { email: result?.user?.email },
         { withCredentials: true }
       );
@@ -37,7 +37,7 @@ const Login = () => {
     try {
       const result = await signInWithGoogle();
       const { data } = await axios.post(
-        "http://localhost:5000/jwt",
+        "https://assignment11-sand-six.vercel.app/jwt",
         { email: result?.user?.email },
         { withCredentials: true }
       );
@@ -54,7 +54,7 @@ const Login = () => {
       const result = await signInWithGithub();
       console.log("result", result);
       const { data } = await axios.post(
-        "http://localhost:5000/jwt",
+        "https://assignment11-sand-six.vercel.app/jwt",
         { email: result?.user?.email },
         { withCredentials: true }
       );

@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setLoading(true);
-    const { data } = await axios("http://localhost:5000/logout", {
+    const { data } = await axios("https://assignment11-sand-six.vercel.app/logout", {
       withCredentials: true,
     });
     console.log(data);

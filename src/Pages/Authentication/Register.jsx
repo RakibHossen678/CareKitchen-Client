@@ -16,14 +16,14 @@ const Register = () => {
     const name = form.name.value;
     const photo = form.photo.value;
     const pass = form.password.value;
-    console.log({ email, pass, name, photo });
+    // console.log({ email, pass, name, photo });
     try {
       const result = await createUser(email, pass);
       console.log(result);
       await updateUserProfile(name, photo);
       setUser({ ...result?.user, photoURL: photo, displayName: name });
       const { data } = await axios.post(
-        "http://localhost:5000/jwt",
+        "https://assignment11-sand-six.vercel.app/jwt",
         { email: result?.user?.email },
         { withCredentials: true }
       );

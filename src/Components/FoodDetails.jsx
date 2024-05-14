@@ -26,7 +26,7 @@ const FoodDetails = () => {
     expiredDate,
     notes,
   } = food;
-  console.log(food);
+  
   const { mutateAsync } = useMutation({
     mutationFn: async ({ _id, foodData }) => {
       const { data } = await axiosSecure.put(`/food/${_id}`, foodData);
@@ -60,7 +60,7 @@ const FoodDetails = () => {
 
     // try {
     //   const { data } = await axios.put(
-    //     `http://localhost:5000/food/${_id}`,
+    //     `https://assignment11-sand-six.vercel.app/food/${_id}`,
     //     foodData
     //   );
     //   console.log(data);

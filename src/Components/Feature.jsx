@@ -13,7 +13,6 @@ const Feature = ({ food }) => {
     expiredDate,
     notes,
   } = food;
-  // console.log(food);
   return (
     <motion.div
       whileHover={{ scale: 1.1 }}
