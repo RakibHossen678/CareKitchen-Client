@@ -25,7 +25,7 @@ const Home = () => {
 
   console.log(foods);
   return (
-    <div>
+    <div className="">
        <Helmet>
         <title>CareKitchen || Home</title>
       </Helmet>

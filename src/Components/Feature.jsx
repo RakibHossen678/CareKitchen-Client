@@ -18,7 +18,7 @@ const Feature = ({ food }) => {
       whileHover={{ scale: 1.1 }}
       transition={{ type: "spring", stiffness: 400, damping: 10, delay: 0.2 }}
     >
-      <div className="flex flex-col max-w-md p-4 space-y-6 overflow-hidden rounded-lg shadow-md ">
+      <div className="flex flex-col max-w-md p-4 space-y-6  overflow-hidden rounded-lg max-h-[590px] shadow-md h-full">
         <div className="flex space-x-4">
           <img
             alt=""
