@@ -19,6 +19,7 @@ import UpdateFood from "./Components/UpdateFood";
 import FoodRequest from "./Pages/FoodRequest";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
+import Profile from "./Pages/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -85,8 +86,13 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path:'/profile',
+        element:<PrivateRoute><Profile></Profile></PrivateRoute>
+      }
     ],
   },
+
 ]);
 const  queryClient=new QueryClient()
 ReactDOM.createRoot(document.getElementById("root")).render(
