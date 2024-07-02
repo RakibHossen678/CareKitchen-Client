@@ -32,3 +32,9 @@ page
 - [react-icons](https://react-icons.github.io/react-icons/) uses  for icons
 - [lottie-react](https://www.npmjs.com/package/lottie-react) uses  for video animation
 
+#### Cloning and Running the Project
+```sh
+git clone https://github.com/RakibHossen678/CareKitchen-Client
+npm install
+npm run dev
+
