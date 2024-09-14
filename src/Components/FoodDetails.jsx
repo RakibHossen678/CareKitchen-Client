@@ -1,9 +1,7 @@
 import { MdNote } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
 import { motion } from "framer-motion";
-
 import { useState } from "react";
-
 import toast from "react-hot-toast";
 import useAuth from "../Hooks/useAuth";
 import { useMutation } from "@tanstack/react-query";
@@ -12,7 +10,6 @@ import { Helmet } from "react-helmet";
 
 const FoodDetails = () => {
   const food = useLoaderData();
-  console.log(food);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [note, setNotes] = useState("");
@@ -26,17 +23,22 @@ const FoodDetails = () => {
     expiredDate,
     notes,
   } = food;
-  
-  const { mutateAsync } = useMutation({
+
+  const { mutateAsync, isLoading } = useMutation({
     mutationFn: async ({ _id, foodData }) => {
       const { data } = await axiosSecure.put(`/food/${_id}`, foodData);
-      console.log(data);
+      return data;
     },
     onSuccess: () => {
       toast.success("Request successfully added");
     },
+    onError: () => {
+      toast.error("Failed to add request");
+    },
   });
-  const handleRequest = async () => {
+
+  const handleRequest = async (e) => {
+    e.preventDefault();
     const status = "requested";
     const foodData = {
       foodName: food.foodName,
@@ -55,40 +57,28 @@ const FoodDetails = () => {
       },
       status,
     };
-    console.log(foodData);
     await mutateAsync({ _id, foodData });
-
-    // try {
-    //   const { data } = await axios.put(
-    //     `https://assignment11-sand-six.vercel.app/food/${_id}`,
-    //     foodData
-    //   );
-    //   console.log(data);
-    //   toast.success("Request successfully added");
-    // } catch (err) {
-    //   console.log(err);
-    //   toast.error(err.message);
-    // }
   };
+
   return (
     <div className="flex lg:flex-row flex-col justify-center items-center my-20 gap-10">
       <Helmet>
         <title>CareKitchen || Food Details</title>
       </Helmet>
-      <div className="">
+      <div className="w-full max-w-lg">
         <motion.img
           initial={{ opacity: 0, x: -300 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{
             delay: 0.2,
-            X: { type: "spring", stiffness: 60 },
+            type: "spring",
+            stiffness: 60,
             opacity: { duration: 1 },
-            ease: "easeIn",
-            duration: 1,
           }}
-          className="w-full h-[400px] "
+          className="w-full h-[400px] object-cover"
           src={foodImg}
-          alt=""
+          alt={foodName}
+          loading="lazy"
         />
       </div>
       <motion.div
@@ -96,208 +86,159 @@ const FoodDetails = () => {
         whileInView={{ x: 0, opacity: 1 }}
         transition={{
           delay: 0.2,
-          X: { type: "spring", stiffness: 60 },
+          type: "spring",
+          stiffness: 60,
           opacity: { duration: 1 },
-          ease: "easeIn",
-          duration: 1,
         }}
-        className=""
+        className="max-w-lg"
       >
         <div className="flex space-x-2 py-3">
-          <img className="w-14 rounded-lg" src={donor?.image} alt="" />
+          <img
+            className="w-14 h-14 rounded-lg object-cover"
+            src={donor?.image || "https://via.placeholder.com/150"}
+            alt={donor?.name}
+          />
           <div>
-            <h1>{donor?.name}</h1>
-            <h1>{donor?.email}</h1>
+            <h1 className="font-semibold text-lg">{donor?.name}</h1>
+            <h1 className="text-sm text-gray-500">{donor?.email}</h1>
           </div>
         </div>
         <div>
-          <h2 className="mb-1 text-xl font-semibold">{foodName}</h2>
-
-          <div className=" py-2  space-y-3">
-            <p className="">
-              <span className="font-semibold">Expire Date</span> :
+          <h2 className="mb-2 text-2xl font-semibold">{foodName}</h2>
+          <div className="py-2 space-y-3">
+            <p>
+              <span className="font-semibold">Expire Date:</span>{" "}
               {new Date(expiredDate).toLocaleDateString()}
             </p>
             <p>
-              <span className="font-semibold">Quantity</span> : {foodQuantity}{" "}
+              <span className="font-semibold">Quantity:</span> {foodQuantity}{" "}
               servings
             </p>
+            <p>
+              <span className="font-semibold">Pickup Location:</span>{" "}
+              {pickupLocation}
+            </p>
+            <p className="flex items-center">
+              <span className="text-2xl pr-3 py-2">
+                <MdNote />
+              </span>
+              {notes}
+            </p>
           </div>
-          <p className="py-2">
-            <span className="font-semibold">Pickup Location</span> :{" "}
-            {pickupLocation}
-          </p>
-          <p className="flex items-center">
-            <span className="text-2xl pr-3 py-2">
-              <MdNote />
-            </span>
-            {notes}
-          </p>
         </div>
-        <div>
-          <button
-            className="btn bg-[#ff6347] items-center text-white hover:bg-[#ff6347] rounded-lg py-2 px-4 space-x-1.5"
-            onClick={() => document.getElementById("my_modal_5").showModal()}
-          >
-            Request
-          </button>
-          <dialog
-            id="my_modal_5"
-            className="modal modal-bottom sm:modal-middle"
-          >
-            <div className="modal-box">
-              <div className="modal-action">
-                <form onSubmit={handleRequest} method="dialog">
-                  <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200 ">
-                        Food Name
-                      </label>
-                      <input
-                        defaultValue={foodName}
-                        readOnly
-                        id="name"
-                        type="text"
-                        name="name"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-opacity-40  focus:outline-none focus:ring"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Food Image
-                      </label>
-                      <input
-                        value={foodImg}
-                        readOnly
-                        id="image"
-                        type="text"
-                        name="photo"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-opacity-40 focus:outline-none focus:ring"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Food Id
-                      </label>
-                      <input
-                        defaultValue={_id}
-                        readOnly
-                        id="image"
-                        type="text"
-                        name="photo"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Donor Name
-                      </label>
-                      <input
-                        defaultValue={donor?.name}
-                        readOnly
-                        id="quantity"
-                        type="text"
-                        name="quantity"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-opacity-40  focus:outline-none focus:ring"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Donor Email
-                      </label>
-                      <input
-                        defaultValue={donor?.email}
-                        readOnly
-                        id="quantity"
-                        type="text"
-                        name="quantity"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Email
-                      </label>
-                      <input
-                        defaultValue={user?.email}
-                        readOnly
-                        id="quantity"
-                        type="text"
-                        name="quantity"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600  focus:ring-opacity-40  focus:outline-none focus:ring"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Pickup Location
-                      </label>
-                      <input
-                        defaultValue={pickupLocation}
-                        readOnly
-                        id="location"
-                        type="text"
-                        name="location"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-opacity-40 focus:outline-none focus:ring"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Expired Date/Time
-                      </label>
-                      <input
-                        defaultValue={new Date(
-                          expiredDate
-                        ).toLocaleDateString()}
-                        readOnly
-                        id="location"
-                        type="text"
-                        name="location"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-opacity-40  focus:outline-none focus:ring"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Request Date
-                      </label>
-                      <input
-                        defaultValue={new Date().toLocaleDateString()}
-                        readOnly
-                        id="notes"
-                        type="text"
-                        name="notes"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-opacity-40  focus:outline-none focus:ring"
-                      />
-                    </div>
-                    <div onChange={(e) => setNotes(e.target.value)}>
-                      <label className="text-gray-700 dark:text-gray-200">
-                        Additional Notes
-                      </label>
-                      <input
-                        defaultValue={notes}
-                        id="notes"
-                        type="text"
-                        name="notes"
-                        className="lg:block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex justify-end mt-6">
-                    <button
-                      type="submit"
-                      className=" px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-[#ff6347] rounded-md  w-full"
-                    >
-                      Request
-                    </button>
-                  </div>
-                </form>
+        <button
+          className="btn bg-[#ff6347] text-white hover:bg-[#e5534f] rounded-lg py-2 px-4"
+          onClick={() => document.getElementById("request-modal").showModal()}
+        >
+          Request
+        </button>
+        <dialog
+          id="request-modal"
+          className="modal modal-bottom sm:modal-middle"
+        >
+          <div className="modal-box">
+            <h2 className="text-lg font-semibold mb-4">Request Details</h2>
+            <form onSubmit={handleRequest}>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label className="text-gray-700">Food Name</label>
+                  <input
+                    defaultValue={foodName}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Food Image</label>
+                  <input
+                    defaultValue={foodImg}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Food Id</label>
+                  <input
+                    defaultValue={_id}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Donor Name</label>
+                  <input
+                    defaultValue={donor?.name}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Donor Email</label>
+                  <input
+                    defaultValue={donor?.email}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Your Email</label>
+                  <input
+                    defaultValue={user?.email}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Pickup Location</label>
+                  <input
+                    defaultValue={pickupLocation}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Expired Date/Time</label>
+                  <input
+                    defaultValue={new Date(expiredDate).toLocaleDateString()}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Request Date</label>
+                  <input
+                    defaultValue={new Date().toLocaleDateString()}
+                    readOnly
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Additional Notes</label>
+                  <input
+                    value={note}
+                    onChange={(e) => setNotes(e.target.value)}
+                    className="w-full px-4 py-2 mt-2 text-gray-700 border border-gray-200 rounded-md"
+                  />
+                </div>
               </div>
-            </div>
-          </dialog>
-        </div>
+              <div className="flex justify-end mt-6">
+                <button
+                  type="submit"
+                  className={`px-8 py-2.5 text-white bg-[#ff6347] rounded-md ${
+                    isLoading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Processing..." : "Request"}
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            className="modal-backdrop"
+            onClick={() => document.getElementById("request-modal").close()}
+          ></div>
+        </dialog>
       </motion.div>
     </div>
   );

@@ -1,22 +1,25 @@
 import { motion } from "framer-motion";
 import img1 from "../assets/inspire.jpg";
+
 const Inspire = () => {
   return (
-    <div className="flex gap-8 lg:flex-row flex-col items-center my-24">
+    <div className="flex gap-8 lg:flex-row flex-col items-center my-24 px-4">
       <div className="lg:flex-1">
         <motion.img
           initial={{ opacity: 0, x: -300 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{
             delay: 0.2,
-            X: { type: "spring", stiffness: 60 },
+            type: "spring",
+            stiffness: 60,
             opacity: { duration: 1 },
             ease: "easeIn",
             duration: 1,
           }}
           src={img1}
-          className="rounded-xl"
-          alt=""
+          className="rounded-xl shadow-lg"
+          alt="Inspirational image related to mission"
+          loading="lazy"
         />
       </div>
       <motion.div
@@ -24,7 +27,8 @@ const Inspire = () => {
         whileInView={{ x: 0, opacity: 1 }}
         transition={{
           delay: 0.2,
-          X: { type: "spring", stiffness: 60 },
+          type: "spring",
+          stiffness: 60,
           opacity: { duration: 1 },
           ease: "easeIn",
           duration: 1,
@@ -32,9 +36,12 @@ const Inspire = () => {
         className="lg:flex-1"
       >
         <div>
-          <h1 className="text-md font-semibold">What inspires us?</h1>
-          <h1 className="text-5xl py-3 font-bold"><span className="text-[#ff6347]">Smiles are</span>  <br />true testimonials!</h1>
-          <ol className="list-disc px-4 space-y-2">
+          <h2 className="text-md font-semibold">What Inspires Us?</h2>
+          <h1 className="text-5xl py-3 font-bold">
+            <span className="text-[#ff6347]">Smiles are</span> <br />
+            true testimonials!
+          </h1>
+          <ol className="list-disc px-4 space-y-2 mt-4">
             <li>
               Every empty stomach represents an opportunity for us to make a
               difference. The knowledge that our actions can directly alleviate
@@ -52,7 +59,7 @@ const Inspire = () => {
               meaningful impact.
             </li>
             <li>
-              We are inspired by the transformative power of providing access to
+              We are inspired by the transformation power of providing access to
               nutritious food. By empowering individuals to lead healthier and
               more fulfilling lives, we contribute to the well-being and
               resilience of our community. Knowing that our donations can help
@@ -61,7 +68,6 @@ const Inspire = () => {
             </li>
           </ol>
         </div>
-        
       </motion.div>
     </div>
   );
