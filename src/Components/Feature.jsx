@@ -1,7 +1,8 @@
 import { MdNote } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+
 const Feature = ({ food }) => {
   const {
     _id,
@@ -13,71 +14,83 @@ const Feature = ({ food }) => {
     expiredDate,
     notes,
   } = food;
+
   return (
     <motion.div
-      whileHover={{ scale: 1.1 }}
-      transition={{ type: "spring", stiffness: 400, damping: 10, delay: 0.2 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.2 }}
     >
-      <div className="flex flex-col max-w-md p-4 space-y-6  overflow-hidden rounded-lg max-h-[590px] shadow-md h-full">
-        <div className="flex space-x-4">
+      <div className="flex flex-col max-w-md p-6 space-y-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden h-full">
+        {/* Donor Information */}
+        <div className="flex items-center space-x-4">
           <img
-            alt=""
-            src={donor?.image}
-            className="object-cover w-12 h-12 rounded-full shadow bg-gray-500"
+            alt="Donor Avatar"
+            src={
+              donor?.image ||
+              "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=2048x2048&w=is&k=20&c=6hQNACQQjktni8CxSS_QSPqJv2tycskYmpFGzxv3FNs="
+            }
+            className="object-cover w-12 h-12 rounded-full shadow-md bg-gray-200"
           />
           <div className="flex flex-col space-y-1">
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              className="text-sm font-semibold"
-            >
+            <h3 className="text-sm font-semibold text-gray-900">
               {donor?.name}
-            </a>
-            <span className="text-xs text-gray-400">{donor?.email}</span>
+            </h3>
+            <span className="text-xs text-gray-500">{donor?.email}</span>
           </div>
         </div>
-        <div>
+
+        {/* Food Image */}
+        <div className="relative">
           <img
             src={foodImg}
-            alt=""
-            className="object-cover w-full mb-4 h-60 bg-cover bg-center"
+            alt={foodName}
+            className="object-cover w-full h-60 rounded-lg"
           />
-          <h2 className="mb-1 text-xl font-semibold">{foodName}</h2>
+        </div>
 
-          <div className="flex py-2 justify-between items-center">
-            <p className="">
-              <span className="font-semibold">Expire Date</span> :
+        {/* Food Info */}
+        <div className="flex flex-col space-y-3">
+          <h2 className="text-xl font-bold text-gray-800">{foodName}</h2>
+          <div className="flex justify-between text-sm text-gray-600">
+            <p>
+              <span className="font-semibold">Expire Date</span>:{" "}
               {new Date(expiredDate).toLocaleDateString()}
             </p>
             <p>
-              <span className="font-semibold">Quantity</span> : {foodQuantity}{" "}
+              <span className="font-semibold">Quantity</span>: {foodQuantity}{" "}
               servings
             </p>
           </div>
-          <p className="py-2">
-            <span className="font-semibold">Pickup Location</span> :{" "}
+          <p className="text-sm text-gray-600">
+            <span className="font-semibold">Pickup Location</span>:{" "}
             {pickupLocation}
           </p>
-          <p className="flex items-center">
-            <span className="text-2xl pr-3 py-2">
-              <MdNote />
-            </span>
-            {notes}
-          </p>
+          {notes && (
+            <p className="flex items-start text-gray-600 text-sm">
+              <MdNote className="text-xl mr-2" />
+              <span>{notes}</span>
+            </p>
+          )}
         </div>
-        <div className="">
+
+        {/* View Details Button */}
+        <div className="mt-auto">
           <Link to={`/details/${_id}`}>
-            <button className=" w-full bg-[#ff6347] items-center text-white rounded-lg p-2 space-x-1.5">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              className="w-full py-3 text-white font-semibold bg-[#ff6347] rounded-lg hover:bg-[#e5583d] transition-all duration-300"
+            >
               View Details
-            </button>
+            </motion.button>
           </Link>
         </div>
       </div>
     </motion.div>
   );
 };
-Feature.propTypes={
-  food:PropTypes.object
-}
+
+Feature.propTypes = {
+  food: PropTypes.object.isRequired,
+};
 
 export default Feature;
