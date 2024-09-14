@@ -1,6 +1,7 @@
 # CareKitchen 
 
 - [CareKitchen](https://assignment11-736a2.web.app/) 
+- [github-server](https://github.com/RakibHossen678/CareKitchen-Server) 
 
 
 
@@ -30,4 +31,10 @@ page
 - [frame-motion](https://www.framer.com/motion/animation/) uses  for animation
 - [react-icons](https://react-icons.github.io/react-icons/) uses  for icons
 - [lottie-react](https://www.npmjs.com/package/lottie-react) uses  for video animation
+
+#### Cloning and Running the Project
+```sh
+git clone https://github.com/RakibHossen678/CareKitchen-Client
+npm install
+npm run dev
 
